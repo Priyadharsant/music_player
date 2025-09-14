@@ -33,7 +33,7 @@ audioPlayer.addEventListener("ended",function (){
     })
 function play(no = index) {
     index = no;
-    audioPlayer.src = "./larkplayer/drive/"+list[index]; 
+    audioPlayer.src = list[index]; 
     
     audioPlayer.play().catch(err => console.log("Play error:", err)); 
     console.log(audioPlayer.duration)
