@@ -44,7 +44,7 @@ function play(no = index) {
     equalizer[index].innerText = ""
     equalizer[index].classList.remove('show')
     index = no;
-    audioPlayer.src = "./larkplayer/drive/"+list[index]; 
+    audioPlayer.src = list[index]; 
     
     audioPlayer.play().catch(err => console.log("Play error:", err)); 
     console.log(audioPlayer.duration)
