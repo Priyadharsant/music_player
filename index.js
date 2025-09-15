@@ -75,5 +75,3 @@ document.querySelector(".init").addEventListener('click',()=>{
 
 document.querySelector('.next').addEventListener('click', () => play((index + 1)%songs.length ));
 document.querySelector('.prev').addEventListener('click', () => play((index + songs.length - 1)%songs.length ));
-document.querySelector('.next').addEventListener('click', () => play((index + 1)%songs.length ));
-document.querySelector('.prev').addEventListener('click', () => play((index + songs.length - 1)%songs.length ));
