@@ -7,14 +7,23 @@ for(let m = 0;m<list.length;m++)
 {
     let main = document.querySelector("main");
 let div = document.createElement("div");
-div.innerHTML =  list[m].split('.')[0]
-div.classList.add('song')
-main.appendChild(div); 
 
+let span = document.createElement("span");
+span.classList.add("material-symbols-outlined");
+span.classList.add("equalizer")
+
+div.appendChild(span);
+
+let p = document.createElement("p");
+p.innerText = list[m].split('.')[0];
+div.appendChild(p);
+
+div.classList.add('song');
+main.appendChild(div);
 }
 
 let songs = document.querySelectorAll(".song")
- 
+let equalizer = document.querySelectorAll('.equalizer')
 for(let i = 0;i<songs.length;i++)
 {
     
@@ -32,20 +41,35 @@ audioPlayer.addEventListener("ended",function (){
         
     })
 function play(no = index) {
+    equalizer[index].innerText = ""
+    equalizer[index].classList.remove('show')
     index = no;
-    audioPlayer.src = list[index]; 
+    audioPlayer.src = "./larkplayer/drive/"+list[index]; 
     
     audioPlayer.play().catch(err => console.log("Play error:", err)); 
     console.log(audioPlayer.duration)
+    document.querySelector('.init').innerText = list[index].split('.')[0] ;
+    equalizer[index].classList.add('show')
+    equalizer[index].innerText = "equalizer"
     
-    document.querySelector('.init').innerText = songs[no].innerHTML;
+    
 }
 
+let playing = 1
 
 document.querySelector(".init").addEventListener('click',()=>{
     if(document.querySelector('.init').innerText == "Tap to Play")
     {
         play((index + 1)%songs.length )
+    }
+    else{
+        if(!audioPlayer.paused)
+        {
+            audioPlayer.pause()
+        }
+        else {
+            audioPlayer.play()
+        }
     }
 })
 
