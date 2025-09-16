@@ -45,7 +45,7 @@
             font-size :20px ;
             margin-top :20px ;
             width: 85vw;
-            height: 70px;
+            height: 120px;
             background: #b6b6b62d;
             filter: blur(15);
             padding: 15px 20px 20px 20px ;
@@ -61,7 +61,7 @@
             background: #000000d4;
             display : flex ;
             justify-content:space-around;
-            height :40px ;
+            height : 70px ;
             overflow :hidden ;
             user-select: none;
             -webkit-user-select: none;     
@@ -80,7 +80,14 @@
         .show{
             margin-right: 20px;
         }
-        
+        @media (min-width:700px){
+            div{
+                height : 70px;
+            }
+            .play{
+                height : 40px;
+            }
+        }
     </style>
 </head>
 <body>
