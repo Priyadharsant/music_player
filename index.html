@@ -3,9 +3,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Asimovian&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bree+Serif&family=Cambo&family=Charm:wght@400;700&family=Emilys+Candy&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Asimovian&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Bree+Serif&family=Cambo&family=Charm:wght@400;700&family=Emilys+Candy&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Metrophobic&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
     <title>Music Player</title>
     <style>
         body {
@@ -18,7 +21,6 @@
             background-size: cover;
             background-attachment: fixed;
         }    
-        
         header {
             box-shadow: 0 0 10px rgba(255,255,255,0.5);  
             background: #000000ca;
@@ -26,67 +28,118 @@
             top: 0;
             z-index: 10;
             width: 100%;
+            height :8vh;
+            display :flex ;
+            align-items :center ;
+            justify-content :center ;
+            margin-bottom :20px;
         }
 
         h1 {
             color: white;
-            text-align: center;
             text-shadow: 0 0 15px black;
             padding: 8px ;
+            font-size : 4vh;
         }
         main{
             display: flex ;
             flex-direction :column ;
             align-items :center ;
         }
-        div{
+       .song,.play{
             display : flex;
-            align-items :center ;
-            font-size :20px ;
-            margin-top :20px ;
+            font-size :2vh;
             width: 85vw;
-            height: 120px;
-            background: #b6b6b62d;
+            margin: 0;
+            height: 12vh;
+            background :#b6b6b62d;
             filter: blur(15);
-            padding: 15px 20px 20px 20px ;
-            color: white;
-            border-radius: 10px;
-            box-shadow : 0 0 5px #4c4c4cd8;
+            padding: 20px ;
+            color: white ;
+            box-shadow: 0 0 5px #4c4c4cd8;
+            align-items: center ;
+            font-family: 'Metrophobic';
         }
-        
+        .logo{
+            height : 11vh;
+            width : 11vh;
+            border : 2px solid #33332fdf;
+            border-radius : 15%;
+            margin-right : 20px;            
+        }
         .play{
             position: fixed ;
             z-index :30;
+            width : 98%;
             bottom: 0px;
+            height : 10%;
             background: #000000d4;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
             display : flex ;
+            align-items: center ;
             justify-content:space-around;
-            height : 90px ;
+            padding :0;
             overflow :hidden ;
             user-select: none;
             -webkit-user-select: none;     
             -moz-user-select: none;        
             -ms-user-select: none; 
+            
         }
         .init{
             width:60%;
             overflow: hidden ;
             text-align: center;
             display :flex ;
-            justify-content :center ;
-            font-size: 16px;
+            align-items :center ;
         }
         
-        .show{
-            margin-right: 20px;
+        .song-name{
+            display: flex ;
+            flex-direction: column ;
+            justify-content: center ;
+            background: transparent;
+            height: 70px;
+            width: 80%;
         }
-        @media (min-width:700px){
-            div{
-                height : 70px;
-            }
-            .play{
-                height : 40px;
-            }
+        .song-name h4{
+            margin: 0;
+            padding: 0;
+        }
+        .song-name p{
+            margin: 0;
+            padding: 0;
+            color: #c1c1c1;
+            font-size :1.5vh;
+        }
+        .play-pause{
+            width : 4vh;
+            height : 4vh;
+            border-radius : 50%;
+            background :#333333;
+            display : flex ;
+            align-items :center ;
+            justify-content :center ;
+        }
+        .next,.prev,.play-pause{
+            font-size : 2vh;
+            font-weight : bold;
+        }
+        a{
+            color : white ;
+            text-decoration :none ;
+        }
+        .play-pause:hover{
+            background :#474747;
+        }
+        .show_eq{
+            height :100%;
+            margin-right :15px;
+            display :flex ;
+            justify-content :center ;
+            align-items :center ;
+            font-size :5vw;
         }
         @media (max-width : 740px )
         {
@@ -97,20 +150,22 @@
                 height :100px;
             }
             
-            }
+        }
+        
     </style>
 </head>
 <body>
-    <header><h1>Music Player<audio id="audioPlayer" ></audio></h1></header>
+    <header><h1><a src="#bot" href="#bot">Music Player</a><audio id="audioPlayer" ></audio></h1></header>
     <main>
         <div class="play">
-            <span class="material-symbols-outlined prev"> skip_previous </span>
             <span class="init" >Tap to Play</span>
+            <span class="material-symbols-outlined prev"> skip_previous </span> 
+            <span class="material-symbols-outlined play-pause"> play_arrow </span>
             <span class="material-symbols-outlined next">skip_next</span>
         </div>
     </main>
-    
+    <span id="bot"></span>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script> 
 <script src="index.js"></script>
 </html>
-    
