@@ -12,18 +12,21 @@
     <title>Music Player</title>
     <style>
         body {
-            background: #282828fb;
+            background: #1a5d9e ;
             padding: 0;
             font-family : "Bree Serif";
-            background-image: url('bg.jpg');
+            ackground-image: url('bg.jpg');
+            background :#0a233c;
             background-repeat: no-repeat ;
             background-position: center center;
             background-size: cover;
             background-attachment: fixed;
+            borde :2vw solid #d97400;
+            border-radius :50px ;
         }    
         header {
             box-shadow: 0 0 10px rgba(255,255,255,0.5);  
-            background: #000000ca;
+            background: #2b96ff;
             border-radius : 10px;
             top: 0;
             z-index: 10;
@@ -31,7 +34,7 @@
             height :8vh;
             display :flex ;
             align-items :center ;
-            justify-content :center ;
+            justify-content :left ;
             margin-bottom :20px;
         }
 
@@ -39,7 +42,7 @@
             color: white;
             text-shadow: 0 0 15px black;
             padding: 8px ;
-            font-size : 4vh;
+            font-size :24px;
         }
         main{
             display: flex ;
@@ -51,14 +54,16 @@
             font-size :2vh;
             width: 85vw;
             margin: 0;
-            height: 12vh;
-            backdrop-filter : blur(20px );
+            height: 8vh;
             filter: blur(15);
             padding: 20px ;
             color: white ;
-            box-shadow: 0 0 5px #4c4c4cd8;
+            border-radius :10px;
+            box-shadow: 0 0 5px #278beb;
             align-items: center ;
             font-family: 'Metrophobic';
+            backdrop-filter : blur(20px );
+            background :#0c2945;
         }
         .logo{
             height : 11vh;
@@ -70,17 +75,304 @@
         .play{
             position: fixed ;
             z-index :30;
-            width : 98%;
-            bottom: 0px;
-            height : 10%;
-            backdrop-filter : blur(40px );
-            border-top-right-radius: 10px;
-            border-top-left-radius: 10px;
+            width : 90%;
+            bottom: 3vh;
+            min-height : 10%;
+            backdrop-filter : blur(10px );
+            background :#2b96ffc4;
+            display: flex;
+            border-radius :20px;
+            flex-direction: column ;
+            font-family :"Bree Serif";
+            transition: transform 2s ease-in-out;
+        }
+        .init{
+            width:60%;
+            overflow: hidden ;
+            display :flex ;
+            height :8vh;
+            overflow :hidden ;
+            align-items :center ;
+        }
+        .scroll{
+            width :100%;
+            border-radius: 10px;
             display : flex ;
             align-items: center ;
             justify-content:space-around;
             padding :0;
             overflow :hidden ;
+            user-select: none;
+            -webkit-user-select: none;     
+            -moz-user-select: none;        
+            -ms-user-select: none; 
+        }       
+        .song-name{
+            display: flex ;
+            flex-direction: column ;
+            justify-content: center ;
+            
+            background: transparent;
+            min-height: 70px;
+            width: 80%;
+            
+        }
+        .song-name h4{
+            margin: 0;
+            padding: 0;
+        }
+        .song-name p{
+            margin: 0;
+            padding: 0;
+            color: #c1c1c1;
+            font-size :1.5vh;
+        }
+        .play-pause{
+            width : 4vh;
+            height : 4vh;
+            border-radius : 50%;
+            background :#195a98;
+            display : flex ;
+            align-items :center ;
+            justify-content :center ;
+        }
+        .next,.prev,.play-pause{
+            font-size : 2vh;
+            font-weight : bold;
+        }
+        a{
+            color : white ;
+            text-decoration :none ;
+        }
+        .play-pause:hover{
+            background :#80c1ff;
+        }
+        .show_eq{
+            height :100%;
+            margin-right :15px;
+            display :flex ;
+            justify-content :center ;
+            align-items :center ;
+            font-size :20px ;
+        }
+        .range{
+            width :95%; 
+            -webkit-appearance:none;
+            background :#113b64;
+            backdrop-filter : blur(40px );
+            height :1.5vw;
+            position :absolute ;                      
+            margin :0px;
+            transition: all .3s ease-in-out;
+            z-index: 2;
+            border-radius : 30px;
+            
+        }
+        
+        .range::-webkit-slider-thumb{
+            -webkit-appearance: none ;
+            appearance :none ;
+            background: #c8c8c8;
+            border-radius :50%;
+            border: 3px solid #1f6fbc;
+            height: 4vw ;
+            width: 4vw;
+            transition: transform .3s linear, background 0.3s ease-in-out;
+        }
+        .crange{
+            bottom:0px;
+        }
+        .time_line{
+            position: absolute ;
+            margin :0px;
+            display: flex ;
+            justify-content: space-between ;
+            width: 90vw;
+            z-index :50;
+            left:2.5vw;
+            bottom :2.5vw;
+        }
+        .time_line p{
+            margin :0px;
+            font-size: 3vw;
+            right :0px;
+            color: #113b64;
+        }
+       .hide{
+            transform: translateY(120vh);
+            opacity :0;
+        }        
+        .specific{
+            z-index: 100;
+            height: 100vh;
+            width: 100vw;
+            position: fixed ;
+            background :#0a233c;
+            color white ;
+            top :0px;
+            color :white ;
+            left: 0px;
+            display: flex ;
+            flex-direction : column ;
+            align-items :center ;
+            justify-content: center ;
+            text-align: center ;
+        }
+        .specific img{
+            width :60vw ;
+            height :60vw ;
+            border-radius : 20px;
+        }
+        .specific_time{
+            margin :0px;
+            display: flex ;
+            justify-content: space-between ;
+            width: 90vw;
+            z-index :50;
+            
+        }
+        .s_name{
+            font-size : 20px ;
+        }
+        .s_art{
+            font-size : 18px;
+        }
+        .close{
+            position: absolute ;
+            top: 2%;
+            right: 2%;
+            z-index: 105;
+            height: 8vw;
+            width: 8vw;
+            border-radius :50%;
+            color:white ;
+            background: #8098ff;
+            display: flex;
+            justify-content: center ;
+            align-items: center ;
+            font-size: 80%;
+        }
+        .s_control{
+            display :flex ;
+            justify-content :space-around;
+            width: 75vw;
+            margin : 5vh;
+        }
+        .control{
+            display :flex ;
+            flex-direction :column;
+            align-items :center ;
+            
+        }
+        .sp_con{
+            display :flex ;
+            flex-direction :column ;
+            align-items :center ;
+        }
+        .srange{
+            position :static;
+            width :91vw;
+        }
+        
+        @media (min-width : 740px )
+        {
+            div{
+                height :120x;
+            }
+            .play{
+                height :100px;
+            }
+            .range{
+                height : 10px ;
+            }
+            .range::-webkit-slider-thumb{
+                width : 25px;
+                height : 25px;
+            }
+            .time_line p{
+                font-size : 20px;
+                width:55%;
+            }
+            .time_line{
+                bottom: 15px;
+                width:55vw;
+            }
+            .specific img{
+                width : 400px;
+                height : 400px;
+            }
+            .specific .range{
+                width : 600px;
+            }
+            .specific_time{
+                width :550px;
+            }
+            .s_name{
+                font-size :22px;
+            }
+            .s_art{
+                font-size : 20px ;
+            }
+            .srange{
+                width :600px;
+            }
+            .s_control{
+                width :500px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <header><h1><a src="#bot" href="#bot">Music Player</a>
+    <audio id="audioPlayer" ></audio></h1></header>
+    <main>
+        <div class="play hide">
+                              
+            <div class = 'scroll'>
+            <span class="init" >Tap to Play</span>
+            <span class="material-symbols-outlined prev"> skip_previous </span> 
+            <span class="material-symbols-outlined play-pause"> play_arrow </span>
+            <span class="material-symbols-outlined next">skip_next</class="range">
+        </div>
+        <div class='control play_control'>
+            <div class="time_line play_time_line">
+                <p class="ctime">00:00</p>
+                <p class="time">00:00</p>
+            </div>
+            <input type="range" class="range crange">
+        </div>
+    </main>
+    <section class="specific">
+        <div class="close">
+            <span class="material-symbols-outlined">
+arrow_drop_down
+</span> 
+        </div>
+        <img src="bg.jpg" alt="" class="s_img"></img>
+        <div class = "song-name">
+            <h4 class = "s_name">Song</h4>
+            <p class = "s_art">Artists</p>
+        </div>
+        <div class = 's_control'>
+            <span class="material-symbols-outlined prev"> skip_previous </span> 
+            <span class="material-symbols-outlined play-pause"> play_arrow </span>
+            <span class="material-symbols-outlined next">skip_next</class="range">
+        </div>
+        <div class='sp_con'>
+            <div class = "specific_time">
+                <p class="ctime">00:00</p>
+                <p class="time">00:00</p>
+            </div>
+            <div>
+                <input type="range" class="range srange">
+            </div>
+        </div>
+    </section>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script> 
+<script src="index.js"></script>
+</html>
             user-select: none;
             -webkit-user-select: none;     
             -moz-user-select: none;        
