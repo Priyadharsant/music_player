@@ -4,119 +4,195 @@ list.sort();
 
 const audioPlayer = document.getElementById('audioPlayer');
 let index = Math.floor(Math.random()*list.length);
+let range = document.querySelectorAll('.range');
+let ctime = document.querySelectorAll(".ctime");
+let time = document.querySelectorAll(".time");
+let control = document.querySelector('.play');
+let specific = document.querySelector(".specific");
+let play_name = document.querySelector('.init');
+let s_img = document.querySelector(".s_img");
+let s_name = document.querySelector(".s_name");
+let s_art = document.querySelector(".s_art");
 
-for(let m = 0;m<list.length;m++)
-{
-    let main = document.querySelector("main");
-    let div = document.createElement("div");
-    
-    /* let img = document.createElement("img")
-    img.classList.add("logo");
-    img.setAttribute('src','bg.jpg') 
-    
-    
-    div.appendChild(img) */
-    span = document.createElement("span"); span.classList.add("material-symbols-outlined");
-    span.classList.add("equalizer")
-    
-    div.appendChild(span);
-    
-    let text = document.createElement('div');
-    text.classList.add('song-name')
-    
-    let h = document.createElement("h4");
-    h.innerText = list[m].split('.')[0];
-    text.appendChild(h);
-    
-    let p = document.createElement("p");
-    p.innerText = list[m].split('.')[0];
-    text.appendChild(p)
-    div.appendChild(text) 
-    
-    
-    div.classList.add('song');
-    
-    if(m==list.length-1)
-    {
-        div.style.marginBottom = '14vw'
-    }
-    main.appendChild(div);
+specific.classList.add('hide');
+control.classList.add('hide');
+
+for (let m = 0; m < list.length; m++) {
+  let main = document.querySelector("main");
+  let div = document.createElement("div");
+  let span = document.createElement("span");
+  span.classList.add("material-symbols-outlined", "equalizer");
+  div.appendChild(span);
+  let text = document.createElement('div');
+  text.classList.add('song-name');
+  let h = document.createElement("h4");
+  h.innerText = list[m].split('.')[0];
+  text.appendChild(h);
+  let p = document.createElement("p");
+  p.innerText = list[m].split('.')[0];
+  text.appendChild(p);
+  div.appendChild(text);
+  div.classList.add('song');
+  if (m == list.length - 1) {
+    div.style.marginBottom = '14vw';
+  }
+  main.appendChild(div);
 }
 
 let songs = document.querySelectorAll(".song");
 let equalizer = document.querySelectorAll('.equalizer');
-let play_pause = document.querySelector(".play-pause")
+let play_pause = document.querySelectorAll(".play-pause");
 
 function play(no = index) {
-    equalizer[index].innerText = "";
-    equalizer[index].classList.remove('show_eq');
-    index = no;
-    audioPlayer.src = list[index]; 
-    play_pause.innerText = "pause"
-    audioPlayer.play().catch(err => console.log())
-    
-    document.querySelector('.init').innerText = list[index].split('.')[0] ;
-    equalizer[index].classList.add('show_eq');
-    equalizer[index].innerText = "equalizer";
-    
-    
+  control.classList.remove('hide');
+  equalizer[index].innerText = "";
+  equalizer[index].classList.remove('show_eq');
+  index = no;
+  audioPlayer.src = list[index];
+  play_pause[0].innerText = "pause";
+  play_pause[1].innerText = "pause";
+  audioPlayer.play().catch(err => console.log());
+  play_name.innerText = list[index].split('.')[0];
+  equalizer[index].classList.add('show_eq');
+  equalizer[index].innerText = "equalizer";
+  s_name.innerText = play_name.innerText;
+  processAudioFile(audioPlayer.src);
 }
 
+for (let i = 0; i < songs.length; i++) {
+  songs[i].addEventListener("click", () => play(i));
+}
 
-for(let i = 0;i<songs.length;i++)
+audioPlayer.addEventListener("ended", function () {
+  play((index + 1) % songs.length);
+});
+
+for(let i=0;i<2;i++)
 {
-    
-     songs[i].addEventListener("click", () => play(i)); 
-    
+    document.querySelectorAll('.next')[i].addEventListener('click', () => play((index + 1) % songs.length));
+    document.querySelectorAll('.prev')[i].addEventListener('click', () => play((index + songs.length - 1) % songs.length));
 }
 
-audioPlayer.addEventListener("ended",function (){
-        play((index + 1)%songs.length );
-    })
-    
-
-document.querySelector('.next').addEventListener('click', () => play((index + 1)%songs.length ));
-document.querySelector('.prev').addEventListener('click', () => play((index + songs.length - 1)%songs.length ));
-
-let gesture = document.querySelector('.play');
-let x1,x2;
-
-play_pause.addEventListener('click',() => {
-    if ( document.querySelector('.init').innerText == "Tap to Play" )
-    {
-        play((index + 1)%songs.length );
-        play_pause.innerText = "pause"
+let gesture = document.querySelector('.scroll');
+let x1, x2;
+for(let i = 0;i<2;i++){
+    play_pause[i].addEventListener('click', () => {
+  if (document.querySelector('.init').innerText == "Tap to Play") {
+    play((index + 1) % songs.length);
+    play_pause[0].innerText = "pause";
+    play_pause[1].innerText = "pause";
+  } else {
+    if (!audioPlayer.paused) {
+      audioPlayer.pause();
+      play_pause[0].innerText = "play_arrow";
+      play_pause[1].innerText = "play_arrow";
+    } else {
+          play_pause[0].innerText = "pause";
+          play_pause[1].innerText = "pause";
+      audioPlayer.play().catch(err => console.log());
     }
-    
-    else{
-        if(!audioPlayer.paused)
-        {
-            audioPlayer.pause();
-            play_pause.innerText = "play_arrow"
-        }
-        else{
-            play_pause.innerText = "pause"
-            audioPlayer.play().catch(err => console.log()); 
-        }
-    }     
-})
-
-audioPlayer.onloadedmetadata = function (){
-    console.log(audioPlayer.duration)
+  }
+});
 }
+audioPlayer.onloadedmetadata = function () {
+  range[0].max = audioPlayer.duration;
+  time[0].innerText = String(Math.floor(audioPlayer.duration / 60)).padStart(2, '0') + ':' + String(Math.floor(audioPlayer.duration % 60)).padStart(2, '0');
+  range[1].max = audioPlayer.duration;
+  time[1].innerText = String(Math.floor(audioPlayer.duration / 60)).padStart(2, '0') + ':' + String(Math.floor(audioPlayer.duration % 60)).padStart(2, '0');
+};
 
-gesture.addEventListener('touchstart',(e) => {
-    x1 = e.changedTouches[0].screenX;
-})
+setInterval(() => {
+  range[0].value = audioPlayer.currentTime;
+  ctime[0].innerText = String(Math.floor(audioPlayer.currentTime / 60)).padStart(2, '0') + ':' + String(Math.floor(audioPlayer.currentTime % 60)).padStart(2, '0');
+  range[1].value = audioPlayer.currentTime;
+  ctime[1].innerText = String(Math.floor(audioPlayer.currentTime / 60)).padStart(2, '0') + ':' + String(Math.floor(audioPlayer.currentTime % 60)).padStart(2, '0');
+}, 1000);
 
-gesture.addEventListener('touchend',(e) => {
-    x2 = e.changedTouches[0].screenX;
-    if ( Math.abs(x1 - x2) > 10)
-    {
-        if (x1 > x2) {
-            play((index + 1)%songs.length );
-        }else if(x1 < x2){
-            play((index + songs.length - 1)%songs.length ) ;
+range.onchange = () => {
+  const newTime = parseFloat(range.value);
+  audioPlayer.currentTime = newTime;
+  range.value = newTime;
+  console.log(range.value);
+};
+
+let y1,y2;
+
+gesture.addEventListener('touchstart', (e) => {
+  x1 = e.changedTouches[0].screenX;
+  y1 = e.changedTouches[0].screenY;
+});
+
+gesture.addEventListener('touchend', (e) => {
+  x2 = e.changedTouches[0].screenX;
+  y2 = e.changedTouches[0].screenY;
+  if (Math.abs(x1 - x2) > 30) {
+    if (x1 > x2) {
+      play((index + 1) % songs.length);
+    } else if (x1 < x2) {
+      play((index + songs.length - 1) % songs.length);
+    }
+  }
+  else if(Math.abs(y2-y1) > 10 && y2<y1){
+      specific.classList.remove('hide')
+  }
+});
+
+play_name.addEventListener('click', () => {
+  specific.classList.remove('hide');
+});
+
+document.querySelector('.close').addEventListener("click", () => {
+  specific.classList.add('hide');
+  if (audioPlayer && audioPlayer.src) {
+    processAudioFile(audioPlayer.src);
+  }
+});
+
+async function processAudioFile(filePath) {
+  try {
+    const response = await fetch(filePath);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch file: ${response.statusText}`);
+    }
+    const audioBlob = await response.blob();
+    window.jsmediatags.read(audioBlob, {
+      onSuccess: function (tag) {
+        if (tag.tags.artist) {
+          s_art.textContent = tag.tags.artist;
+        } else {
+          s_art.textContent = list[index].split('.')[0];
         }
-    }  
-})
+        if (tag.tags.picture) {
+          const picture = tag.tags.picture;
+          const byteArray = new Uint8Array(picture.data);
+          const blob = new Blob([byteArray], { type: picture.format || "image/jpeg" });
+          const url = URL.createObjectURL(blob);
+          s_img.src = url;
+          s_img.onload = () => URL.revokeObjectURL(url);
+        } else {
+          s_img.src = "bg.jpg";
+        }
+      },
+      onError: function (error) {
+        console.error("Error reading tags:", error);
+        s_art.textContent = list[index].split(".")[0];
+        s_img.src = "bg.jpg";
+      }
+    });
+  } catch (error) {
+    console.error("Error processing audio file:", error);
+  }
+}
+let s_y1,s_y2;
+specific.addEventListener('touchstart', (e) => {
+  s_y1 = e.changedTouches[0].screenY;
+});
+
+specific.addEventListener('touchend', (e) => {
+  s_y2 = e.changedTouches[0].screenY;
+  if (Math.abs(s_y1 - s_y2) > 30) {
+    if (s_y1 < s_y2) {
+      specific.classList.add('hide');
+    }
+  }
+}); 
