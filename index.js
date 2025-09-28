@@ -48,7 +48,7 @@ function play(no = index) {
   equalizer[index].innerText = "";
   equalizer[index].classList.remove('show_eq');
   index = no;
-  audioPlayer.src = list[index];
+  audioPlayer.src = "larkplayer/drive/" + list[index];
   play_pause[0].innerText = "pause";
   play_pause[1].innerText = "pause";
   audioPlayer.play().catch(err => console.log());
@@ -119,22 +119,17 @@ let y1,y2;
 
 gesture.addEventListener('touchstart', (e) => {
   x1 = e.changedTouches[0].screenX;
-  y1 = e.changedTouches[0].screenY;
 });
 
 gesture.addEventListener('touchend', (e) => {
   x2 = e.changedTouches[0].screenX;
-  y2 = e.changedTouches[0].screenY;
   if (Math.abs(x1 - x2) > 30) {
     if (x1 > x2) {
       play((index + 1) % songs.length);
     } else if (x1 < x2) {
       play((index + songs.length - 1) % songs.length);
     }
-  }
-  else if(Math.abs(y2-y1) > 10 && y2<y1){
-      specific.classList.remove('hide')
-  }
+    }
 });
 
 play_name.addEventListener('click', () => {
@@ -190,9 +185,21 @@ specific.addEventListener('touchstart', (e) => {
 
 specific.addEventListener('touchend', (e) => {
   s_y2 = e.changedTouches[0].screenY;
-  if (Math.abs(s_y1 - s_y2) > 30) {
+  if (Math.abs(s_y1 - s_y2) > 60) {
     if (s_y1 < s_y2) {
       specific.classList.add('hide');
+    }
+  }
+});
+control.addEventListener('touchstart', (e) => {
+  s_y1 = e.changedTouches[0].screenY;
+});
+
+control.addEventListener('touchend', (e) => {
+  s_y2 = e.changedTouches[0].screenY;
+  if (Math.abs(s_y1 - s_y2) > 60) {
+    if (s_y1 > s_y2) {
+      specific.classList.remove('hide');
     }
   }
 }); 
