@@ -39,7 +39,7 @@
         }
 
         h1 {
-            color: white;
+            color: #5261a3;
             text-shadow: 0 0 15px black;
             padding: 8px ;
             font-size :24px;
@@ -96,6 +96,7 @@
         }
         .scroll{
             width :100%;
+            height : 5vh;
             border-radius: 10px;
             display : flex ;
             align-items: center ;
@@ -141,7 +142,7 @@
             font-weight : bold;
         }
         a{
-            color : white ;
+            color : #d4f3fe;
             text-decoration :none ;
         }
         .play-pause:hover{
@@ -153,10 +154,10 @@
             display :flex ;
             justify-content :center ;
             align-items :center ;
-            font-size :20px ;
+            font-size :2vh;
         }
         .range{
-            width :95%; 
+            width :92vw; 
             -webkit-appearance:none;
             background :#113b64;
             backdrop-filter : blur(40px );
@@ -183,18 +184,17 @@
             bottom:0px;
         }
         .time_line{
-            position: absolute ;
             margin :0px;
             display: flex ;
             justify-content: space-between ;
             width: 90vw;
             z-index :50;
-            left:2.5vw;
-            bottom :2.5vw;
+            bottom : 2vw;
+            position :absolute ;
         }
         .time_line p{
             margin :0px;
-            font-size: 3vw;
+            font-size: 2vh;
             right :0px;
             color: #113b64;
         }
@@ -222,6 +222,9 @@
             width :60vw ;
             height :60vw ;
             border-radius : 20px;
+            margin-bottom :10px;
+            border : 5px inset #5261a3;
+            box-shadow : 0 0 7px #5261a3;
         }
         .specific_time{
             margin :0px;
@@ -250,11 +253,12 @@
             display: flex;
             justify-content: center ;
             align-items: center ;
-            font-size: 80%;
+            font-size: 80px;
         }
         .s_control{
             display :flex ;
             justify-content :space-around;
+            align-items :center ;
             width: 75vw;
             margin : 5vh;
         }
@@ -272,12 +276,19 @@
         .srange{
             position :static;
             width :91vw;
+            bottom: auto;
+        }
+        .close_sym {
+          font-size : 30px;
         }
         
         @media (min-width : 740px )
         {
             div{
                 height :120x;
+            }
+            h1 {
+                font-size :60px ;
             }
             .play{
                 height :100px;
@@ -290,28 +301,27 @@
                 height : 25px;
             }
             .time_line p{
-                font-size : 20px;
-                width:55%;
-            }
-            .time_line{
-                bottom: 15px;
-                width:55vw;
-            }
+                font-size : 30px;
+             }
             .specific img{
                 width : 400px;
                 height : 400px;
+                margin-bottom :20px ;
+                border : 7px inset #5261a3;
+                box-shadow : 0 0 10px #5261a3;
             }
             .specific .range{
                 width : 600px;
             }
             .specific_time{
                 width :550px;
+                font-size : 25px;
             }
             .s_name{
-                font-size :22px;
+                font-size :35px;
             }
             .s_art{
-                font-size : 20px ;
+                font-size : 32px ;
             }
             .srange{
                 width :600px;
@@ -319,6 +329,17 @@
             .s_control{
                 width :500px;
             }
+            .close_sym {
+                font-size :60px;
+            }
+            .material-symbols-outlined {
+          font-variation-settings:
+             'FILL' 0,
+              'wght' 700,
+              'GRAD' 0,
+              'opsz' 24
+        }
+        
         }
         
     </style>
@@ -345,7 +366,7 @@
     </main>
     <section class="specific">
         <div class="close">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined close_sym">
 arrow_drop_down
 </span> 
         </div>
