@@ -34,11 +34,11 @@
             height :8vh;
             display :flex ;
             align-items :center ;
-            justify-content :left ;
+            justify-content: space-between ;
             margin-bottom :20px;
         }
 
-        h1 {
+        h1, .search_btn {
             color: #5261a3;
             text-shadow: 0 0 15px black;
             padding: 8px ;
@@ -129,8 +129,8 @@
             font-size :1.5vh;
         }
         .play-pause{
-            width : 4vh;
-            height : 4vh;
+            width : 5vh;
+            height : 5vh;
             border-radius : 50%;
             background :#195a98;
             display : flex ;
@@ -199,8 +199,9 @@
             color: #113b64;
         }
        .hide{
+            display : none ;
             transform: translateY(120vh);
-            opacity :0;
+            
         }        
         .specific{
             z-index: 100;
@@ -282,6 +283,65 @@
           font-size : 30px;
         }
         
+        .search_bar{
+            width : 100vw;
+            height : 5vh;
+            background : white ;
+            display: flex ;
+            flex-direction :column ;
+            align-items: flex-start;
+            margin: 5px;
+            border-radius : 10px;
+        }
+        #search{
+            flex : 1;
+            border: none;
+            outline: none;
+            padding: 10px 20px;            
+            border-radius: 1px;
+            width : 100%;
+        }
+        .results{
+            position :absolute ;
+            background : white ;
+            width :  90vw;
+            z-index : 40;
+            flex: 1;
+            top : 7vh;
+            padding: 10px;
+            border-radius : 10px;
+            border-top : 1px solid black ;
+        }
+        .results li{
+            list-style: none;
+            margin: 0px;
+            padding: 10px;
+            flex: 1;
+            list-style-position: outside;
+            align-self: flex-start;
+            border-radius : 10px;
+        }
+        .row{
+            width : 100%;
+            display :flex ;
+            align-items :center ;
+            justify-content :space-around ;
+        }
+        li:hover{
+           
+            box-shadow : 0 0 15px #278beb ;
+        }
+        .search_btn{
+            width : 30px ;
+           
+        }
+        .search_hide{
+            display : none ;
+        }
+        .search_btn{
+            color : white ;
+            font-weight :bold ;
+        }
         @media (min-width : 740px )
         {
             div{
@@ -329,24 +389,49 @@
             .s_control{
                 width :500px;
             }
-            .close_sym {
+            .material-symbols-outlined{
                 font-size :60px;
             }
-            .material-symbols-outlined {
-          font-variation-settings:
-             'FILL' 0,
-              'wght' 700,
-              'GRAD' 0,
-              'opsz' 24
-        }
-        
+            header{
+                width :94%;
+                padding-left : 3%;
+                padding-right: 3%;
+            }
+            .search_btn{
+                    align-self: flex-end;
+            }
+            #search{
+                font-size : 40px ;
+            }       
+            li{
+                font-size :35px;
+            }
         }
         
     </style>
 </head>
 <body>
     <header><h1><a src="#bot" href="#bot">Music Player</a>
-    <audio id="audioPlayer" ></audio></h1></header>
+ </h1>
+        <div ><span class="material-symbols-outlined search_btn">
+search
+</span> </div>
+        <div class="search_bar search_hide">
+            <div class="row">
+            <input type="text" placeholder="Search Song" id="search">
+            <span class="material-symbols-outlined search_close">
+close
+</span>
+</div>
+            <div class="results">
+            <ul id="result">
+                
+            </ul>
+            </div>
+        </div>
+    
+    </header>
+       <audio id="audioPlayer" ></audio>
     <main>
         <div class="play hide">
                               
@@ -364,7 +449,7 @@
             <input type="range" class="range crange">
         </div>
     </main>
-    <section class="specific">
+    <section class="specific hide">
         <div class="close">
             <span class="material-symbols-outlined close_sym">
 arrow_drop_down
