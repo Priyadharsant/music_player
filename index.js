@@ -213,6 +213,7 @@ search_btn.addEventListener('click',() =>{
     search_btn.classList.add("search_hide");
     search_bar.classList.remove("search_hide");
     h1.classList.add("search_hide");
+    search.focus();
 })
 
 search_close.addEventListener('click',()=>{
