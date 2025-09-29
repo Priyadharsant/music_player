@@ -13,9 +13,8 @@ let play_name = document.querySelector('.init');
 let s_img = document.querySelector(".s_img");
 let s_name = document.querySelector(".s_name");
 let s_art = document.querySelector(".s_art");
-
-specific.classList.add('hide');
-control.classList.add('hide');
+let search_bar = document.querySelector('.search_bar');
+let h1 = document.querySelector('h1');
 
 for (let m = 0; m < list.length; m++) {
   let main = document.querySelector("main");
@@ -145,23 +144,23 @@ document.querySelector('.close').addEventListener("click", () => {
 
 async function processAudioFile(filePath) {
   try {
-    const response = await fetch(filePath);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch file: ${response.statusText}`);
-    }
-    const audioBlob = await response.blob();
-    window.jsmediatags.read(audioBlob, {
+    const response = await fetch(filePath, { mode: "cors" });
+    if (!response.ok) throw new Error("Fetch failed: " + response.statusText);
+
+    const blob = await response.blob();
+    window.jsmediatags.read(blob, {
       onSuccess: function (tag) {
         if (tag.tags.artist) {
           s_art.textContent = tag.tags.artist;
         } else {
           s_art.textContent = list[index].split('.')[0];
         }
+
         if (tag.tags.picture) {
           const picture = tag.tags.picture;
           const byteArray = new Uint8Array(picture.data);
-          const blob = new Blob([byteArray], { type: picture.format || "image/jpeg" });
-          const url = URL.createObjectURL(blob);
+          const blobPic = new Blob([byteArray], { type: picture.format || "image/jpeg" });
+          const url = URL.createObjectURL(blobPic);
           s_img.src = url;
           s_img.onload = () => URL.revokeObjectURL(url);
         } else {
@@ -174,8 +173,8 @@ async function processAudioFile(filePath) {
         s_img.src = "bg.jpg";
       }
     });
-  } catch (error) {
-    console.error("Error processing audio file:", error);
+  } catch (err) {
+    console.error("Error processing audio file:", err);
   }
 }
 let s_y1,s_y2;
@@ -202,4 +201,54 @@ control.addEventListener('touchend', (e) => {
       specific.classList.remove('hide');
     }
   }
-}); 
+});
+
+let search = document.querySelector("#search");
+let result = document.querySelector("#result")
+let search_btn = document.querySelector(".search_btn");
+let search_close = document.querySelector(".search_close"); 
+
+
+search_btn.addEventListener('click',() =>{
+    search_btn.classList.add("search_hide");
+    search_bar.classList.remove("search_hide");
+    h1.classList.add("search_hide");
+})
+
+search_close.addEventListener('click',()=>{
+    search_bar.classList.add("search_hide")
+    h1.classList.remove("search_hide")
+    search_btn.classList.remove("search_hide");
+    search.value = ""
+})
+search.addEventListener("input", () => {
+   let ul = document.createElement("ul");
+   let found = false
+   search_bar.classList.remove("search_hide");
+   for (let i = 0; i < list.length; i++) {
+       if (list[i].toLowerCase().includes(search.value.toLowerCase())) {
+           let li = document.createElement('li');
+           found = true
+           li.innerText = list[i].split('.')[0];
+           li.setAttribute("value", i);
+           li.classList.add("search_el");
+           li.addEventListener("click", () => {
+              search_btn.classList.remove("search_hide") ;
+              h1.classList.remove('search_hide')
+              search.value = ""
+              search_bar.classList.add('search_hide');
+             play(parseInt(li.getAttribute("value")));
+           });
+
+           ul.appendChild(li);
+       }
+   }
+   if (found ) {
+       result.innerHTML = ""
+       result.appendChild(ul);
+   }
+   else{
+       result.innerHTML = "Not Found "
+   }
+   
+});
