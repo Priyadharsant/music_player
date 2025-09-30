@@ -10,7 +10,7 @@ let time = document.querySelectorAll(".time");
 let control = document.querySelector('.play');
 let specific = document.querySelector(".specific");
 let play_name = document.querySelector('.init');
-let s_img = document.querySelector(".s_img");
+let s_img = document.querySelectorAll(".s_img");
 let s_name = document.querySelector(".s_name");
 let s_art = document.querySelector(".s_art");
 let search_bar = document.querySelector('.search_bar');
@@ -47,7 +47,7 @@ function play(no = index) {
   equalizer[index].innerText = "";
   equalizer[index].classList.remove('show_eq');
   index = no;
-  audioPlayer.src = list[index];
+  audioPlayer.src = "larkplayer/drive/" + list[index];
   play_pause[0].innerText = "pause";
   play_pause[1].innerText = "pause";
   audioPlayer.play().catch(err => console.log());
@@ -59,7 +59,10 @@ function play(no = index) {
 }
 
 for (let i = 0; i < songs.length; i++) {
-  songs[i].addEventListener("click", () => play(i));
+  songs[i].addEventListener("click", () => {
+      specific.classList.remove('hide');
+      play(i);
+  });
 }
 
 audioPlayer.addEventListener("ended", function () {
@@ -161,16 +164,21 @@ async function processAudioFile(filePath) {
           const byteArray = new Uint8Array(picture.data);
           const blobPic = new Blob([byteArray], { type: picture.format || "image/jpeg" });
           const url = URL.createObjectURL(blobPic);
-          s_img.src = url;
-          s_img.onload = () => URL.revokeObjectURL(url);
+          for(let i = 0;i<2;i++)
+          {
+              s_img[i].src = url;
+              s_img[i].onload = () => URL.revokeObjectURL(url);     
+          }
         } else {
-          s_img.src = "bg.jpg";
+          s_img[0].src = "no_img.jpg";
+          s_img[1].src = "no_img.jpg";
         }
       },
       onError: function (error) {
         console.error("Error reading tags:", error);
         s_art.textContent = list[index].split(".")[0];
-        s_img.src = "bg.jpg";
+        s_img[0].src = "no_img.jpg";
+          s_img[1].src = "no_img.jpg";
       }
     });
   } catch (err) {
