@@ -47,7 +47,7 @@ function play(no = index) {
   equalizer[index].innerText = "";
   equalizer[index].classList.remove('show_eq');
   index = no;
-  audioPlayer.src = "larkplayer/drive/" + list[index];
+  audioPlayer.src = list[index];
   play_pause[0].innerText = "pause";
   play_pause[1].innerText = "pause";
   audioPlayer.play().catch(err => console.log());
