@@ -12,11 +12,11 @@
     <title>Music Player</title>
     <style>
         body {
-            background: #1a5d9e ;
+            background: #0a1826 ;
             padding: 0;
             font-family : "Bree Serif";
             ackground-image: url('bg.jpg');
-            background :#0a233c;
+            background :#0a1826;
             background-repeat: no-repeat ;
             background-position: center center;
             background-size: cover;
@@ -26,7 +26,7 @@
         }    
         header {
             box-shadow: 0 0 10px rgba(255,255,255,0.5);  
-            background: #2b96ff;
+            background: linear-gradient(45deg , #0057ab,#0081ff,#0057ab);
             border-radius : 10px;
             top: 0;
             z-index: 10;
@@ -54,16 +54,16 @@
             font-size :2vh;
             width: 85vw;
             margin: 0;
-            height: 8vh;
+            height: 5vh;
             filter: blur(15);
             padding: 20px ;
             color: white ;
             border-radius :10px;
-            box-shadow: 0 0 5px #278beb;
+            border-bottom: 1px solid #278beb  ;
+            border-top: 1px solid #278beb  ;        
             align-items: center ;
             font-family: 'Metrophobic';
             backdrop-filter : blur(20px );
-            background :#0c2945;
         }
         .logo{
             height : 11vh;
@@ -77,17 +77,18 @@
             z-index :30;
             width : 90%;
             bottom: 3vh;
-            min-height : 10%;
+            min-height : 11%;
             backdrop-filter : blur(10px );
-            background :#2b96ffc4;
+            background : linear-gradient(45deg ,#05213df1 ,#1c3d6f,#05213df1);
             display: flex;
             border-radius :20px;
             flex-direction: column ;
+            border: 1px solid #278beb  ;
             font-family :"Bree Serif";
             transition: transform 2s ease-in-out;
         }
         .init{
-            width:60%;
+            width:50%;
             overflow: hidden ;
             display :flex ;
             height :8vh;
@@ -96,8 +97,7 @@
         }
         .scroll{
             width :100%;
-            height : 5vh;
-            border-radius: 10px;
+            height : 8vh;
             display : flex ;
             align-items: center ;
             justify-content:space-around;
@@ -196,7 +196,7 @@
             margin :0px;
             font-size: 2vh;
             right :0px;
-            color: #113b64;
+            color: #bcbcbc;
         }
        .hide{
             display : none ;
@@ -208,7 +208,7 @@
             height: 100vh;
             width: 100vw;
             position: fixed ;
-            background :#0a233c;
+            background : linear-gradient(to bottom,#191919,#001430);
             color white ;
             top :0px;
             color :white ;
@@ -220,8 +220,8 @@
             text-align: center ;
         }
         .specific img{
-            width :60vw ;
-            height :60vw ;
+            width :95vw ;
+            height :95vw ;
             border-radius : 20px;
             margin-bottom :10px;
             border : 5px inset #5261a3;
@@ -262,6 +262,14 @@
             align-items :center ;
             width: 75vw;
             margin : 5vh;
+        }
+        .s_control .next,.prev,.play-pause{
+            font-size : 40px;
+            font-weight : bold;
+        } 
+        .s_control .play-pause{
+            height : 60px;
+            width : 60px;
         }
         .control{
             display :flex ;
@@ -338,10 +346,24 @@
         .search_hide{
             display : none ;
         }
-        .search_btn{
+        .search_btn, .material-symbols-outlined{
             color : white ;
             font-weight :bold ;
         }
+        .img{
+            width : 6vh;
+            height : 6vh ;
+            border-radius : 10px; 
+            margin-right : 2%;
+        }
+        .scroll .next,.prev,.play-pause{
+            font-size : 3vh;
+            font-weight : bold;
+        }
+        .snext,.sprev,.splay-pause{
+            font-size : 40px;
+            font-weight : bold;
+        } 
         @media (min-width : 740px )
         {
             div{
@@ -436,6 +458,7 @@ close
         <div class="play hide">
                               
             <div class = 'scroll'>
+                <img src="no_img.jpg" alt="" class="s_img img"></img>
             <span class="init" >Tap to Play</span>
             <span class="material-symbols-outlined prev"> skip_previous </span> 
             <span class="material-symbols-outlined play-pause"> play_arrow </span>
@@ -455,15 +478,10 @@ close
 arrow_drop_down
 </span> 
         </div>
-        <img src="bg.jpg" alt="" class="s_img"></img>
+        <img src="no_img.jpg" alt="" class="s_img"></img>
         <div class = "song-name">
             <h4 class = "s_name">Song</h4>
             <p class = "s_art">Artists</p>
-        </div>
-        <div class = 's_control'>
-            <span class="material-symbols-outlined prev"> skip_previous </span> 
-            <span class="material-symbols-outlined play-pause"> play_arrow </span>
-            <span class="material-symbols-outlined next">skip_next</class="range">
         </div>
         <div class='sp_con'>
             <div class = "specific_time">
@@ -474,6 +492,11 @@ arrow_drop_down
                 <input type="range" class="range srange">
             </div>
         </div>
+        <div class = 's_control'>
+            <span class="material-symbols-outlined prev sprev"> skip_previous </span> 
+            <span class="material-symbols-outlined play-pause splay-pause"> play_arrow </span>
+            <span class="material-symbols-outlined next snext">skip_next</class="range">
+        </div> 
     </section>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script> 
